@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hugo Marangoni - Advogado</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #d6d5d5;
+        }
+        
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+        
+        .topo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px 0;
+        }
+        
+        .texto-topo {
+            width: 200%;
+        }
+        
+        .texto-topo h1 {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+        
+        .texto-topo h3 {
+            font-weight: normal;
+            color: gray;
+        }
+        
+        .texto-topo p {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        
+        .foto-topo img {
+            width: 600px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: #0c1624;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #d4af37;
+        }
+        
+        .menu a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 15px;
+        }
+        
+        .menu a:hover {
+            color: #d4af37;
+        }
+        /* ===== HERO ===== */
+        
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            background-image: url("hugo.jpg");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(15, 28, 46, 0.9), rgba(15, 28, 46, 0.3));
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        
+        .secao {
+            padding: 60px 0;
+        }
+        
+        .secao h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .areas {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .area {
+            width: 22%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .area h4 {
+            margin-bottom: 10px;
+        }
+        /* NOVO CSS DO ESCRITÓRIO */
+        
+        .escritorio {
+            text-align: center;
+        }
+        
+        .escritorio img {
+            width: 500px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        
+        .rodape {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .botao {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .botao:hover {
+            background-color: #1ebe5d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="topo">
+            <div class="texto-topo">
+                <h1>HUGO MARANGONI</h1>
+                <h3>Advogado</h3>
+                <p>Direito Imobiliário, Contratos e Regularização de Imóveis.</p>
+            </div>
+
+            <div class="foto-topo">
+                <img src="hugo.png" alt="Foto do advogado Hugo Marangoni">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="secao">
+        <div class="container">
+            <h2>Sobre Mim</h2>
+            <p>
+                Hugo de Araujo Marangoni, advogado, atuante na cidade de Maringá/PR e região. Sou especialista em direito imobiliário, contratos e patrimônio, atuante com foco na prevenção e solução de conflitos jurídicos relacionados a imóveis urbanos e rurais, locações,
+                compra e venda, garantias e obrigações contratuais e divisão de bens. Além da experiência consolidada no mercado imobiliário, também atuo fortemente na área de dívidas rurais, auxiliando produtores e empresas do agronegócio na renegociação
+                de contratos, revisão de cláusulas abusivas, defesa em execuções e ações de cobrança, bem como na estruturação de estratégias jurídicas que permitam a continuidade da atividade produtiva com redução de riscos e passivos.
+            </p>
+        </div>
+    </div>
+
+    <div class="secao">
+        <div class="container">
+            <h2>Áreas de Atuação</h2>
+
+            <div class="areas">
+
+                <div class="area">
+                    <h4>Direito Imobiliário</h4>
+                    <p>Assessoria jurídica em compra, venda e regularização de imóveis.</p>
+                </div>
+
+                <div class="area">
+                    <h4>Contratos</h4>
+                    <p>Elaboração, análise e revisão contratual com segurança jurídica.</p>
+                </div>
+
+                <div class="area">
+                    <h4>Regularização</h4>
+                    <p>Regularização de imóveis urbanos e rurais.</p>
+                </div>
+
+                <div class="area">
+                    <h4>Consultoria</h4>
+                    <p>Orientação jurídica personalizada para cada cliente.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- NOVA SEÇÃO DO ESCRITÓRIO -->
+    <div class="secao">
+        <div class="container escritorio">
+            <h2>O Escritório</h2>
+
+            <img src="data:image/png;base64,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"
+                width="110" sizes="110" alt="Escritório Baiane Marangoni">
+
+            <p>
+                O escritório Baiane Marangoni atua com excelência na área de Direito Imobiliário e Contratual, oferecendo atendimento estratégico e personalizado aos seus clientes.
+            </p>
+        </div>
+    </div>
+
+    <div class="rodape">
+        <h2>Agende um Atendimento Online</h2>
+        <p>Clique abaixo para falar diretamente pelo WhatsApp.</p>
+
+        <a class="botao" href="https://wa.me/554499901227" target="_blank">
+        Falar no WhatsApp
+    </a>
+
+        <p style="margin-top:40px;">© 2026 Hugo Marangoni - Todos os direitos reservados</p>
+    </div>
+
+</body>
+
+</html>
