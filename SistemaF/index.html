@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroFinance Pro</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --green:#27ae60;
+  --green-dark:#1e8449;
+  --light:#f5f6fa;
+  --danger:#e74c3c;
+}
+
+*{box-sizing:border-box}
+
+body{
+  font-family:'Inter',sans-serif;
+  margin:0;
+  background:linear-gradient(120deg,#1e3c72,#2a5298,#4facfe);
+  background-size:300% 300%;
+  animation:bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove{
+  0%{background-position:left}
+  100%{background-position:right}
+}
+
+.header{
+  background:linear-gradient(135deg,#27ae60,#2ecc71);
+  color:white;
+  padding:20px;
+  text-align:center;
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:1px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+.container{
+  max-width:1000px;
+  margin:20px auto;
+  padding:15px;
+}
+
+.card{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(15px);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+  transition:.3s;
+  animation:fadeUp .6s ease;
+}
+
+.card:hover{
+  transform:translateY(-5px) scale(1.01);
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  transition:.25s;
+}
+
+input:focus,select:focus{
+  outline:none;
+  border-color:var(--green);
+  box-shadow:0 0 12px rgba(39,174,96,0.6);
+  transform:scale(1.02);
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--green),var(--green-dark));
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+button:active{
+  transform:scale(0.97);
+}
+
+.price-box{
+  margin-top:10px;
+  padding:12px;
+  background:linear-gradient(135deg,#ecf0f1,#dfe6e9);
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 rgba(0,0,0,0)}
+  50%{box-shadow:0 0 15px rgba(39,174,96,0.5)}
+  100%{box-shadow:0 0 0 rgba(0,0,0,0)}
+}
+
+.item{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  padding:12px;
+  margin-top:10px;
+  border-radius:14px;
+  background:white;
+  transition:.25s;
+}
+
+.item:hover{
+  transform:translateX(5px) scale(1.01);
+}
+
+.receita{border-left:6px solid var(--green)}
+.despesa{border-left:6px solid var(--danger)}
+
+canvas{
+  margin-top:15px;
+  background:white;
+  border-radius:12px;
+  padding:10px;
+}
+
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+  .header{font-size:20px}
+  button{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🌾 AgroFinance Pro</div>
+
+<div class="container">
+
+<div class="card">
+  <h3>📥 Lançamento</h3>
+
+  <div class="grid">
+    <input id="desc" placeholder="Descrição">
+    <input id="safra" placeholder="Safra (2025)">
+  </div>
+
+  <div class="grid">
+    <select id="tipo" onchange="alternarCampos()">
+      <option value="receita">Venda</option>
+      <option value="despesa">Custo</option>
+    </select>
+
+    <select id="cultura" onchange="atualizarPreco()">
+      <option value="soja">Soja</option>
+      <option value="milho">Milho</option>
+      <option value="trigo">Trigo</option>
+    </select>
+  </div>
+
+  <input id="producao" type="number" placeholder="Sacas">
+
+  <!-- NOVO CAMPO -->
+  <input id="valorManual" type="number" placeholder="Valor do custo (R$)" style="display:none">
+
+  <div class="price-box" id="precoBox"></div>
+
+  <div class="grid">
+    <input id="precoInput" type="number" placeholder="Alterar preço">
+    <button onclick="alterarPreco()">Atualizar Preço</button>
+  </div>
+
+  <button onclick="add()">Salvar</button>
+</div>
+
+<div class="card">
+  <h3>📊 Registros</h3>
+  <div id="lista"></div>
+</div>
+
+<div class="card">
+  <h3>📈 Lucro por Safra</h3>
+  <canvas id="graficoSafra"></canvas>
+</div>
+
+</div>
+
+<script>
+let dados = JSON.parse(localStorage.getItem('dados')) || [];
+let precos = JSON.parse(localStorage.getItem('precos')) || {
+  soja: 180,
+  milho: 90,
+  trigo: 120
+};
+
+let grafico;
+
+function salvar(){
+  localStorage.setItem('dados', JSON.stringify(dados));
+  localStorage.setItem('precos', JSON.stringify(precos));
+}
+
+function alternarCampos(){
+  let tipo = document.getElementById('tipo').value;
+  document.getElementById('producao').style.display = tipo === 'despesa' ? 'none' : 'block';
+  document.getElementById('valorManual').style.display = tipo === 'despesa' ? 'block' : 'none';
+}
+
+function atualizarPreco(){
+  let c = document.getElementById('cultura').value;
+  document.getElementById('precoBox').innerText = `Preço do ${c}: R$ ${precos[c]} por saca`;
+}
+
+function alterarPreco(){
+  let c = document.getElementById('cultura').value;
+  let novo = parseFloat(document.getElementById('precoInput').value);
+  if(isNaN(novo)) return alert('Digite um preço válido');
+  precos[c] = novo;
+  salvar();
+  atualizarPreco();
+  document.getElementById('precoInput').value = '';
+}
+
+function add(){
+  let d = document.getElementById('desc').value.trim();
+  let s = document.getElementById('safra').value.trim();
+  let t = document.getElementById('tipo').value;
+  let c = document.getElementById('cultura').value;
+  let sacas = parseFloat(document.getElementById('producao').value);
+  let valorManual = parseFloat(document.getElementById('valorManual').value);
+
+  if(!d || !s){
+    alert('Preencha tudo');
+    return;
+  }
+
+  let valor;
+
+  if(t === 'despesa'){
+    if(isNaN(valorManual)){
+      alert('Digite o valor do custo');
+      return;
+    }
+    valor = valorManual;
+  } else {
+    if(isNaN(sacas)){
+      alert('Digite as sacas');
+      return;
+    }
+    valor = sacas * precos[c];
+  }
+
+  dados.push({d, s, t, c, sacas, valor});
+  salvar();
+  atualizar();
+
+  document.getElementById('desc').value='';
+  document.getElementById('safra').value='';
+  document.getElementById('producao').value='';
+  document.getElementById('valorManual').value='';
+}
+
+function remover(i){
+  dados.splice(i,1);
+  salvar();
+  atualizar();
+}
+
+function gerarGrafico(){
+  let mapaSafra={};
+  dados.forEach(it=>{
+    if(!mapaSafra[it.s]) mapaSafra[it.s]=0;
+    mapaSafra[it.s]+= it.t==='receita'?it.valor:-it.valor;
+  });
+
+  let ctx=document.getElementById('graficoSafra').getContext('2d');
+  if(grafico) grafico.destroy();
+
+  grafico=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:Object.keys(mapaSafra),
+      datasets:[{label:'Lucro por Safra',data:Object.values(mapaSafra)}]
+    }
+  });
+}
+
+function atualizar(){
+  let lista=document.getElementById('lista');
+  lista.innerHTML='';
+
+  dados.forEach((it,i)=>{
+    let div=document.createElement('div');
+    div.className='item '+it.t;
+    div.innerHTML=`
+      <span>${it.d} (${it.c})</span>
+      <span>Safra ${it.s}</span>
+      <strong>R$ ${it.valor.toFixed(2)}</strong>
+      <button onclick="remover(${i})" style="background:red">❌</button>
+    `;
+    lista.appendChild(div);
+  });
+
+  gerarGrafico();
+}
+
+alternarCampos();
+atualizarPreco();
+atualizar();
+</script>
+
+</body>
+</html>
