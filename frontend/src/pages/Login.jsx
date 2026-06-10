@@ -1,0 +1,71 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
+
+export default function Login() {
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      const { data } = await api.post('/auth/login', form);
+      login(data.token, data.user);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Erro ao fazer login');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div style={styles.page}>
+      <div style={styles.card}>
+        <h1 style={styles.title}>✅ TaskManager</h1>
+        <p style={styles.subtitle}>Entre na sua conta</p>
+
+        {error && <div style={styles.error}>{error}</div>}
+
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <input
+            style={styles.input}
+            type="email" placeholder="Email"
+            value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
+            required
+          />
+          <input
+            style={styles.input}
+            type="password" placeholder="Senha"
+            value={form.password} onChange={e => setForm({ ...form, password: e.target.value })}
+            required
+          />
+          <button style={styles.btn} type="submit" disabled={loading}>
+            {loading ? 'Entrando...' : 'Entrar'}
+          </button>
+        </form>
+
+        <p style={{ textAlign: 'center', marginTop: '16px', fontSize: '14px', color: '#666' }}>
+          Não tem conta? <Link to="/register" style={{ color: '#7c6af7' }}>Cadastre-se</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  page: { display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f0f0f5' },
+  card: { background: '#fff', padding: '40px', borderRadius: '16px', width: '100%', maxWidth: '400px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)' },
+  title: { textAlign: 'center', fontSize: '28px', margin: '0 0 4px', color: '#7c6af7' },
+  subtitle: { textAlign: 'center', color: '#888', margin: '0 0 24px', fontSize: '14px' },
+  error: { background: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: '8px', marginBottom: '16px', fontSize: '14px' },
+  form: { display: 'flex', flexDirection: 'column', gap: '12px' },
+  input: { padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '8px', fontSize: '14px', outline: 'none' },
+  btn: { padding: '12px', background: '#7c6af7', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '15px', fontWeight: 600, cursor: 'pointer' },
+};
