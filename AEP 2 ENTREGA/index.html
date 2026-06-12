@@ -1,0 +1,531 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecFácil</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: #eef4f8;
+        }
+        
+        header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #0f4c81;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .logo h1 {
+            color: #0f4c81;
+        }
+        
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #0f4c81;
+            font-weight: 600;
+            font-size: 18px;
+            padding: 12px 20px;
+            border-radius: 12px;
+        }
+        
+        nav a:hover {
+            background: #0f4c81;
+            color: white;
+        }
+        
+        .hero {
+            background: linear-gradient(90deg, #0f4c81, #2e86c1);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            max-width: 800px;
+            margin: auto;
+        }
+        
+        .cards {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card h3 {
+            color: #0f4c81;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #e67e22;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        
+        .acessibilidade {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .acessibilidade button {
+            padding: 12px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #0f4c81;
+            color: white;
+            font-size: 18px;
+        }
+        
+        footer {
+            background: #0f4c81;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+        
+        .altoContraste {
+            background: black;
+            color: white;
+        }
+        
+        .altoContraste .card {
+            background: #222;
+            color: white;
+        }
+        
+        .altoContraste header {
+            background: #111;
+        }
+        
+        .altoContraste .card p {
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            <div class="logo-icon">💡</div>
+            <h1>TecFácil</h1>
+        </div>
+
+        <nav>
+            <a href="#">🏠 Início</a>
+            <a href="#">📖 Tutoriais</a>
+            <a href="#">🤝 Suporte</a>
+        </nav>
+
+    </header>
+
+    <section class="hero">
+
+        <h2>Inclusão Digital para Idosos</h2>
+
+        <p>
+            Aprenda a utilizar celulares, internet, WhatsApp, PIX e diversos serviços digitais de maneira simples e segura.
+        </p>
+
+        <div class="acessibilidade">
+
+            <button onclick="aumentarFonte()">
+A+
+</button>
+
+            <button onclick="diminuirFonte()">
+A-
+</button>
+
+            <button onclick="altoContraste()">
+Contraste
+</button>
+
+        </div>
+
+    </section>
+
+    <section class="cards">
+
+        <div class="card">
+
+            <h3>📱 Aprenda a usar o celular</h3>
+
+            <p>
+                Descubra como fazer ligações, enviar mensagens e utilizar aplicativos.
+            </p>
+
+            <a class="btn" href="#" onclick="mostrarTutorial(1)">
+Ver Tutorial
+</a>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🌐 Navegue na Internet</h3>
+
+            <p>
+                Aprenda a pesquisar informações, assistir vídeos e acessar serviços online.
+            </p>
+
+            <a class="btn" href="#" onclick="mostrarTutorial(2)">
+Ver Tutorial
+</a>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🛡 Segurança Digital</h3>
+
+            <p>
+                Saiba identificar golpes, links suspeitos e mensagens falsas.
+            </p>
+
+            <a class="btn" href="#" onclick="mostrarTutorial(3)">
+Ver Tutorial
+</a>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🤝 Suporte Técnico</h3>
+
+            <p>
+                Precisa de ajuda? Entre na fila de atendimento.
+            </p>
+
+            <a class="btn" href="#" onclick="abrirChamado()">
+Abrir Chamado
+</a>
+
+        </div>
+
+    </section>
+
+    <div id="tutorialBox" class="card" style="display:none; max-width:900px; margin:20px auto;">
+
+        <h2 id="tituloTutorial"></h2>
+
+        <p id="conteudoTutorial" style="white-space: pre-line;"></p>
+
+    </div>
+
+    <footer>
+
+        <p>
+            Projeto AEP - ODS 10 Redução das Desigualdades
+        </p>
+
+    </footer>
+
+    <script>
+        // ======================
+        // ACESSIBILIDADE
+        // ======================
+
+        let tamanho = 100;
+
+        function aumentarFonte() {
+            tamanho += 10;
+            document.body.style.fontSize = tamanho + "%";
+        }
+
+        function diminuirFonte() {
+            if (tamanho > 80) {
+                tamanho -= 10;
+                document.body.style.fontSize = tamanho + "%";
+            }
+        }
+
+        function altoContraste() {
+            document.body.classList.toggle("altoContraste");
+        }
+
+        // ======================
+        // CLASSE USUARIO
+        // ======================
+
+        class Usuario {
+
+            constructor(id, nome, email, senha) {
+                this.id = id;
+                this.nome = nome;
+                this.email = email;
+                this.senha = senha;
+            }
+
+            cadastrar() {
+                return "Usuário cadastrado";
+            }
+
+            login(email, senha) {
+                return this.email === email && this.senha === senha;
+            }
+        }
+
+        // ======================
+        // CLASSE TUTORIAL
+        // ======================
+
+        class Tutorial {
+
+            constructor(id, titulo, conteudo, categoria, nivel) {
+                this.id = id;
+                this.titulo = titulo;
+                this.conteudo = conteudo;
+                this.categoria = categoria;
+                this.nivel = nivel;
+            }
+
+            exibir() {
+                alert(
+                    this.titulo +
+                    "\n\n" +
+                    this.conteudo
+                );
+            }
+        }
+
+        // ======================
+        // LISTA DE TUTORIAIS
+        // ======================
+
+        class ListaTutoriais {
+
+            constructor() {
+                this.lista = [];
+            }
+
+            adicionar(tutorial) {
+                this.lista.push(tutorial);
+            }
+
+            listarTodos() {
+                return this.lista;
+            }
+        }
+
+        // ======================
+        // CLASSE SUPORTE
+        // ======================
+
+        class Suporte {
+
+            constructor(id, descricao) {
+                this.id = id;
+                this.descricao = descricao;
+                this.status = "Aberto";
+            }
+
+            abrirChamado() {
+                return "Chamado aberto";
+            }
+
+            encerrar() {
+                this.status = "Encerrado";
+            }
+        }
+
+        // ======================
+        // FILA DE SUPORTE
+        // ======================
+
+        class FilaSuporte {
+
+            constructor() {
+                this.fila = [];
+            }
+
+            enfileirar(chamado) {
+                this.fila.push(chamado);
+            }
+
+            desenfileirar() {
+                return this.fila.shift();
+            }
+
+            quantidade() {
+                return this.fila.length;
+            }
+        }
+
+        // ======================
+        // DADOS DOS TUTORIAIS
+        // ======================
+
+        const listaTutoriais = new ListaTutoriais();
+
+        listaTutoriais.adicionar(
+            new Tutorial(
+                1,
+                "📱 Aprenda a usar o celular",
+                `
+1. Pressione o botão lateral para ligar.
+
+2. Deslize a tela para desbloquear.
+
+3. Toque no aplicativo Telefone.
+
+4. Digite o número desejado.
+
+5. Pressione o ícone verde para ligar.
+        `,
+                "Celular",
+                "Básico"
+            )
+        );
+
+        listaTutoriais.adicionar(
+            new Tutorial(
+                2,
+                "🌐 Navegue na Internet",
+                `
+1. Abra o Google Chrome.
+
+2. Clique na barra de pesquisa.
+
+3. Digite o assunto desejado.
+
+4. Pressione Enter.
+
+5. Escolha um dos resultados.
+        `,
+                "Internet",
+                "Básico"
+            )
+        );
+
+        listaTutoriais.adicionar(
+            new Tutorial(
+                3,
+                "🛡 Segurança Digital",
+                `
+• Nunca compartilhe senhas.
+
+• Não clique em links suspeitos.
+
+• Desconfie de ofertas milagrosas.
+
+• Confirme informações antes de fazer PIX.
+
+• Mantenha seus aplicativos atualizados.
+        `,
+                "Segurança",
+                "Básico"
+            )
+        );
+
+        // ======================
+        // FILA DE SUPORTE
+        // ======================
+
+        const filaSuporte = new FilaSuporte();
+
+        // ======================
+        // BOTÕES
+        // ======================
+
+        function mostrarTutorial(id) {
+
+            const tutorial =
+                listaTutoriais.lista.find(
+                    t => t.id === id
+                );
+
+            if (tutorial) {
+
+                document.getElementById(
+                    "tutorialBox"
+                ).style.display = "block";
+
+                document.getElementById(
+                    "tituloTutorial"
+                ).innerHTML = tutorial.titulo;
+
+                document.getElementById(
+                    "conteudoTutorial"
+                ).innerHTML = tutorial.conteudo;
+
+                document.getElementById(
+                    "tutorialBox"
+                ).scrollIntoView({
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+```
